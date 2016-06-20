@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 药品，管理-->
+	<package name="MedicalManagement" extends="struts-default" namespace="/medical">
+		<!--药品管理界面，加载-->
+		<action name="LoadMedical" class="com.cq.struts2.action.MedicalAction" method="paging">
+			<result name="success">/medical/admin-med.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+		<!--药品管理界面，搜索-->
+		<action name="SearchMedical" class="com.cq.struts2.action.MedicalAction" method="search">
+			<result name="success">/medical/admin-med.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+		<!--药品管理界面，添加药品-->
+		<action name="MedicalMnt_add" class="com.cq.struts2.action.MedicalAction" method="add">
+			<result name="success">/medical/admin-med.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+
+		<!--药品管理界面，到修改药品信息界面-->
+		<action name="MedicalMnt_toedit" class="com.cq.struts2.action.MedicalAction" method="toedit">
+			<result name="success">/medical/admin-medical-edit.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+
+		<!--药品管理界面，修改药品信息-->
+		<action name="MedicalMnt_edit" class="com.cq.struts2.action.MedicalAction" method="edit">
+			<result name="success">/medical/admin-med.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+
+		<action name="MedicalMnt_delete" class="com.cq.struts2.action.MedicalAction" method="delete">
+			<result name="success">/medical/admin-med.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+	</package>
+
+
+</struts>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="AnnounceManagement" extends="struts-default" namespace="/announce">
+        <action name="AnnounceMnt" class="com.cq.struts2.action.AnnounceAction" method="paging">
+            <result name="success">/announce/admin-announce.jsp</result>
+        </action>
+
+        <action name="User_AnnounceMnt" class="com.cq.struts2.action.AnnounceAction" method="paging">
+            <result name="success">/announce/user-announce.jsp</result>
+        </action>
+
+        <action name="AnnounceMnt_add" class="AnnounceAction" method="add">
+            <result name="success">/announce/admin-announce.jsp</result>
+            <result name="error">/main/admin-Error.jsp</result>
+        </action>
+
+        <action name="AnnounceMnt_delete" class="AnnounceAction" method="delete">
+            <result name="success">/announce/admin-announce.jsp</result>
+            <result name="error">/main/admin-Error.jsp</result>
+        </action>
+
+        <!--show -->
+        <action name="AnnounceMnt_show" class="com.cq.struts2.action.AnnounceAction" method="show">
+            <result name="success">/announce/announce-show.jsp</result>
+            <result name="error">/main/admin-Error.jsp</result>
+        </action>
+
+        <!--置顶-->
+
+        <action name="AnnounceMnt_hot" class="AnnounceAction" method="hot">
+            <result name="success">/announce/admin-announce.jsp</result>
+            <result name="error">/main/admin-Error.jsp</result>
+        </action>
+
+
+    </package>
+
+</struts>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+	<!-- 定义数据源 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value><!-- 设置驱动类 -->
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/db_database25?useUnicode=true&amp;characterEncoding=UTF-8</value><!-- 设置连接URL -->
+		</property>
+		<property name="username">
+			<value>root</value>						<!-- 数据库用户名-->
+		</property>
+		<property name="password">
+			<value></value>					<!-- 数据库密码 -->
+		</property>
+	</bean>
+
+	<!-- 定义SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>			<!--数据源-->
+		<property name="hibernateProperties">	<!--Hibernate配置属性-->
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<!--<prop key="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</prop>-->
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.cq.persistence.TbCategory</value>
+				<value>com.cq.persistence.TbMedicine</value>
+				<value>com.cq.persistence.TbSelldetail</value>
+				<value>com.cq.persistence.TbUser</value>
+				<value>com.cq.persistence.TbAnnouncement</value>
+				<value>com.cq.persistence.ViewCategory</value>
+				<value>com.cq.persistence.ViewCountsell</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<!--&lt;!&ndash; 定义HibernateTemplate &ndash;&gt;-->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>		<!--注入SessionFactory实例对象-->
+		</property>
+	</bean>
+
+	<!--<context:annotation-config/>-->
+	<!--<tx:annotation-driven transaction-manager="hibernateTransactionManager" proxy-target-class="true"/>-->
+	<!-- 事务配置 -->
+	<bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+
+	<bean id="AnnounceDaoTarger" class="com.cq.dao.Impl.AnnounceDaoImpl"><!--装配数据访问层-->
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+
+	<bean id="AnnounceDao" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="hibernateTransactionManager"/><!-- 为事务代理bean注入事务管理器-->
+		</property>
+		<property name="transactionAttributes"><!-- 设置事务属性 -->
+			<props>
+				<!-- 所有的方法，采用required的事务策略 -->
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+		<property name="target"><!--为事务代理bean设置目标bean -->
+			<ref bean="AnnounceDaoTarger"/>
+		</property>
+	</bean>
+
+	<bean id="AnnounceService" class="com.cq.service.Impl.AnnounceServiceImpl">
+		<property name="announceDao" ref="AnnounceDao"></property><!--注入DAO层-->
+	</bean>
+	<bean id="AnnounceAction" class="com.cq.struts2.action.AnnounceAction">
+		<property name="announceService" ref="AnnounceService"></property><!--注入DAO层-->
+	</bean>
+
+
+
+</beans>

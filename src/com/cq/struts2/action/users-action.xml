@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="UserManagement" extends="struts-default" namespace="/users">
+		<!--用户管理页面， 加载用户-->
+		<action name="UserMnt" class="com.cq.struts2.action.UserAction" method="listUser">
+			<result name="success">/user/admin-user.jsp</result>
+		</action>
+
+		<action name="UserMnt_paging" class="com.cq.struts2.action.UserAction" method="paging">
+			<result name="success">/user/admin-user.jsp</result>
+		</action>
+		<!--用户管理页面，解锁用户-->
+		<action name="UserMnt_unlock" class="com.cq.struts2.action.UserAction" method="unlock">
+			<result name="success">/user/admin-user.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+
+		<!--用户管理页面， 锁住用户-->
+		<!--锁住后账号不能使用-->
+		<action name="UserMnt_lock" class="com.cq.struts2.action.UserAction" method="lock">
+			<result name="success">/user/admin-user.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+		<!--添加用户-->
+		<action name="UserMnt_addUser" class="com.cq.struts2.action.UserAction" method="addUser">
+			<result name="success">/user/admin-user.jsp</result>
+			<result name="accout-exit">/user/admin-user-edit.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+
+
+	</package>
+
+</struts>

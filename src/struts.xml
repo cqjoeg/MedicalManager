@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!-- spring 接管了-->
+    <constant name="struts.objectFactory" value="spring" />
+
+    <!-- 把它设置为开发模式，发布时要设置为false -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 设置在class被修改时是否热加载，发布时要设置为false -->
+    <constant name="struts.convention.classes.reload" value="true"/>
+    <!-- 自动动态方法的调用，使用这个设置后可以这样调用：action!method -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 国际化资源文件名称 -->
+    <constant name="struts.custom.i18n.resources" value="i18n" />
+    <!-- 是否自动加载国际化资源文件  -->
+    <constant name="struts.i18n.reload" value="true" />
+    <!-- 编码格式 -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- 扩展了后缀为do ，和action action 的uri 请求-->
+    <constant name="struts.action.extension" value="do,action,html"/>
+
+    <!-- 默认目录下的网页 -->
+    <package name="MedicalManager" extends="struts-default" namespace="/">
+        <action name="BaseAction" class="com.cq.struts2.action.BaseAction">
+            <result name="login">/main/admin-login.jsp</result>
+        </action>
+    </package>
+    <include file="com/cq/struts2/action/main-action.xml"/>
+    <include file="com/cq/struts2/action/users-action.xml"/>
+    <include file="com/cq/struts2/action/category-action.xml"/>
+    <include file="com/cq/struts2/action/medical-action.xml"/>
+    <include file="com/cq/struts2/action/announce-action.xml"/>
+</struts>

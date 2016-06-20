@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CategoryManagement" extends="struts-default" namespace="/category">
+		<!--目录管理界面，加载目录-->
+		<action name="LoadCategory" class="com.cq.struts2.action.CategoryAction" method="paging">
+			<result name="success">/category/admin-category.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+		<!--增加类别-->
+		<action name="CategoryMnt_add" class="com.cq.struts2.action.CategoryAction" method="add">
+			<result name="success">/category/admin-category.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+		<!--到编辑页面 -->
+		<!--网页上显示的数据并不一定是最新的数据，所以一定要通过这个action 获得最新的内容-->
+		<action name="CategoryMnt_toedit" class="com.cq.struts2.action.CategoryAction" method="toEdit">
+			<result name="success">/category/admin-category-edit.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+		<!--编辑-->
+		<action name="CategoryMnt_edit" class="com.cq.struts2.action.CategoryAction" method="edit">
+			<result name="success">/category/admin-category.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+		<action name="CategoryMnt_delete" class="com.cq.struts2.action.CategoryAction" method="delete">
+			<result name="success">/category/admin-category.jsp</result>
+			<result name="error">/main/admin-Error.jsp</result>
+		</action>
+
+		<!--类别管理-->
+		<action name="CategoryAction_findAll" class="com.cq.struts2.action.CategoryAction" method="findAll">
+		</action>
+	</package>
+
+</struts>
